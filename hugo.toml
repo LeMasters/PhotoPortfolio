@@ -1,0 +1,10 @@
+baseURL = "https://example.org/"
+languageCode = "en-us"
+title = "Photo Portfolio"
+
+# One page only: turn off the pages Hugo would otherwise generate.
+disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
+
+[markup.goldmark.renderer]
+  # Pages CMS's rich-text editor may save some formatting as HTML.
+  unsafe = true

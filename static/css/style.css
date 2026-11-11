@@ -1,0 +1,137 @@
+/* One-page photo portfolio. Mobile first; wider layouts below. */
+
+:root {
+  --ink: #1b1b1b;
+  --paper: #fafaf7;
+  --muted: #6b6b66;
+  --rule: #e2e1dc;
+  --accent: #9a3b1f;
+  --measure: 38rem;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 1.0625rem/1.6 Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+
+a { color: var(--accent); }
+
+/* The name stays visible at the top of every screen. */
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem 1.25rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: .75rem 1.25rem;
+  background: rgba(250, 250, 247, .96);
+  border-bottom: 1px solid var(--rule);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.masthead .name {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: .01em;
+}
+.masthead nav { display: flex; gap: 1rem; font-size: .95rem; }
+.masthead nav a { color: var(--muted); text-decoration: none; }
+.masthead nav a:hover { color: var(--ink); }
+
+main { padding: 0 1.25rem; }
+
+section { max-width: 72rem; margin: 0 auto; padding: 2.5rem 0; }
+
+h1, h2, h3 { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.2; }
+h1 { font-size: clamp(2rem, 7vw, 3.5rem); margin: 0; }
+h2 { font-size: .85rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 0 0 1.5rem; }
+h3 { font-size: 1.05rem; margin: .75rem 0 .25rem; }
+
+.tagline { color: var(--muted); font-size: 1.15rem; margin: .5rem 0 0; }
+
+/* Work grid: one column on phones, more as space allows. */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.25rem 1.75rem;
+}
+.thumb { display: block; }
+.thumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  background: var(--rule);
+}
+.note p { margin: 0; color: var(--muted); max-width: var(--measure); }
+.year { font-weight: 400; color: var(--muted); }
+
+.about > * { max-width: var(--measure); }
+
+.contact ul { list-style: none; padding: 0; margin: 0; }
+.contact li { margin: .35rem 0; }
+
+footer {
+  padding: 2rem 1.25rem 3rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: .85rem;
+  border-top: 1px solid var(--rule);
+}
+
+/* Full-size view, opened by #photo-n in the address. */
+.lightbox { display: none; }
+.lightbox:target {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.lightbox .backdrop { position: absolute; inset: 0; background: rgba(15, 15, 14, .92); }
+.lightbox figure {
+  position: relative;
+  margin: 0;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lightbox img { max-width: 100%; max-height: 78vh; object-fit: contain; }
+.lightbox figcaption {
+  color: #eee;
+  font-size: .95rem;
+  margin-top: .75rem;
+  max-width: var(--measure);
+  text-align: center;
+}
+.lightbox .close {
+  color: #ccc;
+  margin-top: .75rem;
+  font-family: system-ui, sans-serif;
+  font-size: .9rem;
+  text-decoration: none;
+}
+
+@media (min-width: 40rem) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 64rem) {
+  main, .masthead { padding-left: 2.5rem; padding-right: 2.5rem; }
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}

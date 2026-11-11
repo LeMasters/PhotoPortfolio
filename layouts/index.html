@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="{{ site.LanguageCode | default "en" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ .Title }}{{ with .Params.tagline }} · {{ . }}{{ end }}</title>
+  {{ with .Params.tagline }}<meta name="description" content="{{ . }}">{{ end }}
+  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+</head>
+<body>
+
+  <header class="masthead">
+    <a class="name" href="#top">{{ .Title }}</a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="intro">
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.tagline }}<p class="tagline">{{ . }}</p>{{ end }}
+    </section>
+
+    <section id="work" class="work">
+      <h2>Work</h2>
+      <ul class="grid">
+        {{ range $i, $p := .Params.photos }}
+          {{ with $p.image }}
+            {{ $src := . | strings.TrimPrefix "/" | relURL }}
+            <li>
+              <a href="#photo-{{ add $i 1 }}" class="thumb">
+                <img src="{{ $src }}" alt="{{ $p.alt | default $p.title }}" loading="lazy">
+              </a>
+              <div class="note">
+                <h3>{{ $p.title }}{{ with $p.year }} <span class="year">{{ . }}</span>{{ end }}</h3>
+                {{ with $p.caption }}<p>{{ . }}</p>{{ end }}
+              </div>
+            </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </section>
+
+    <section id="about" class="about">
+      <h2>About</h2>
+      {{ .Content }}
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
+      <ul>
+        {{ with .Params.email }}<li><a href="mailto:{{ . }}">{{ . }}</a></li>{{ end }}
+        {{ range .Params.links }}
+          <li><a href="{{ .url }}">{{ .label }}</a></li>
+        {{ end }}
+      </ul>
+    </section>
+  </main>
+
+  {{/* Full-size views. Each opens when its thumbnail is clicked; no JavaScript. */}}
+  {{ range $i, $p := .Params.photos }}
+    {{ with $p.image }}
+      {{ $src := . | strings.TrimPrefix "/" | relURL }}
+      <div class="lightbox" id="photo-{{ add $i 1 }}">
+        <a class="backdrop" href="#work" aria-label="Close"></a>
+        <figure>
+          <img src="{{ $src }}" alt="{{ $p.alt | default $p.title }}">
+          <figcaption>
+            <strong>{{ $p.title }}</strong>{{ with $p.year }}, {{ . }}{{ end }}
+            {{ with $p.caption }}<br>{{ . }}{{ end }}
+          </figcaption>
+          <a class="close" href="#work">Close ✕</a>
+        </figure>
+      </div>
+    {{ end }}
+  {{ end }}
+
+  <footer>
+    <p>© {{ now.Year }} {{ .Title }}</p>
+  </footer>
+
+</body>
+</html>
