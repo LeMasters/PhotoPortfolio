@@ -1,0 +1,68 @@
+# Pages CMS configuration: turns content/_index.md into an editing form.
+# Docs: https://pagescms.org/docs/configuration/
+
+media:
+  input: static/images
+  output: /images
+
+content:
+  - name: portfolio
+    label: My portfolio
+    type: file
+    path: content/_index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Your name
+        type: string
+        required: true
+        description: Shown at the top of every screen.
+      - name: tagline
+        label: One-line description
+        type: string
+        description: What you do and where, e.g. "Landscape photographer · Oxford, Ohio".
+      - name: photos
+        label: Photos
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.title}"
+        description: Put your strongest image first. Every photo needs a caption that says why it's here.
+        fields:
+          - name: image
+            label: Image
+            type: image
+            required: true
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: year
+            label: Year
+            type: string
+          - name: caption
+            label: Caption
+            type: text
+            description: One or two sentences on what you did and what it shows about you.
+          - name: alt
+            label: Alt text
+            type: string
+            description: A short plain description for screen readers.
+      - name: email
+        label: Email
+        type: string
+      - name: links
+        label: Links
+        type: object
+        list: true
+        description: Résumé, itch.io, Steam, Instagram, etc.
+        fields:
+          - name: label
+            type: string
+          - name: url
+            label: URL
+            type: string
+      - name: body
+        label: About
+        type: rich-text
