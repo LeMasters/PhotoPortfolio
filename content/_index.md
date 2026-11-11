@@ -20,4 +20,4 @@ photos:
     alt: Clearing.
 email: garrison@colophon.org
 ---
-I like to take snapshots of stuff.
+I like to take snapshots of stuff like ponies and dogs.
